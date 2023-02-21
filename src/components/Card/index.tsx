@@ -13,7 +13,7 @@ interface Menu {
 }
 
 export function Card({ id, img, type, name, title, price }: Menu) {
-  const { shoppingCart, addCoffeeAmout, removeCoffeeAmout } =
+  const { shoppingCart, addCoffeeAmount, removeCoffeeAmount } =
     useShoppingCartContext()
 
   const shoppingCartAmout = shoppingCart.find((state) => state.id === id)
@@ -34,13 +34,13 @@ export function Card({ id, img, type, name, title, price }: Menu) {
             R$ <span className="price">{price.toFixed(2)}</span>
           </p>
           <BuyContainer>
-            <button type="button" onClick={() => removeCoffeeAmout(id)}>
+            <button type="button" onClick={() => removeCoffeeAmount(id)}>
               <Minus size={14} weight="fill" />
             </button>
             <p>{shoppingCartAmout?.amount || 0}</p>
             <button
               type="button"
-              onClick={() => addCoffeeAmout(id, img, name, price)}
+              onClick={() => addCoffeeAmount(id, img, name, price)}
             >
               <Plus size={14} weight="fill" />
             </button>

@@ -44,7 +44,7 @@ interface ShoppingCartContextType {
   shoppingCart: CreateShoppingCartData[]
   setShoppingCart: Dispatch<SetStateAction<CreateShoppingCartData[]>>
   shoppingCartAmout: number
-  setShoppingCartAmout: Dispatch<SetStateAction<number>>
+  setShoppingCartAmount: Dispatch<SetStateAction<number>>
   menuCoffee: CoffeMenuData[]
   setMenuCoffee: React.Dispatch<React.SetStateAction<CoffeMenuData[]>>
   menuList: CoffeMenuData[]
@@ -60,7 +60,7 @@ interface ShoppingCartProviderProps {
 
 export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
   const [shoppingCart, setShoppingCart] = useState<CreateShoppingCartData[]>([])
-  const [shoppingCartAmout, setShoppingCartAmout] = useState(0)
+  const [shoppingCartAmout, setShoppingCartAmount] = useState(0)
   const [priceCoffee, setPriceCoffee] = useState(0)
 
   const menuList = [
@@ -186,7 +186,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
         shoppingCart,
         setShoppingCart,
         shoppingCartAmout,
-        setShoppingCartAmout,
+        setShoppingCartAmount,
         menuCoffee,
         setMenuCoffee,
         menuList,
@@ -204,7 +204,7 @@ export function useShoppingCartContext() {
     shoppingCart,
     setShoppingCart,
     shoppingCartAmout,
-    setShoppingCartAmout,
+    setShoppingCartAmount,
     menuCoffee,
     setMenuCoffee,
     menuList,
@@ -235,54 +235,56 @@ export function useShoppingCartContext() {
     }
   }
 
-  function addCoffeeAmout(
+  function addCoffeeAmount(
     id: string,
     img?: string,
     name?: string,
     price?: number,
   ) {
-    const newCoffee: CreateShoppingCartData = {
-      id,
-      img,
-      name,
-      price,
+    const existingCoffee = shoppingCart.find((coffee) => coffee.id === id)
+
+    if (!existingCoffee) {
+      const newCoffee: CreateShoppingCartData = {
+        id,
+        img,
+        name,
+        price,
+        amount: 1,
+      }
+      setShoppingCart((state) => [...state, newCoffee])
+    } else {
+      setShoppingCart((state) =>
+        state.map((coffee) => {
+          if (coffee.id === id) {
+            return {
+              ...coffee,
+              amount: (coffee.amount || 0) + 1,
+            }
+          }
+          return coffee
+        }),
+      )
     }
-
-    const coffeeIsReal = shoppingCart.some((state) => state.id === newCoffee.id)
-
-    if (!coffeeIsReal) {
-      newCoffee.amount = 1
-      return setShoppingCart((state) => [...state, newCoffee])
-    }
-
-    setShoppingCart((state) =>
-      state.map((coffee) => {
-        if (coffee.id === newCoffee.id) coffee.amount! += 1
-
-        return coffee
-      }),
-    )
   }
 
-  function removeCoffeeAmout(id: string) {
-    const newCoffee: CreateShoppingCartData = {
-      id,
-    }
-
-    const coffeeAmout = shoppingCart.find((state) => state.id === newCoffee.id)
+  function removeCoffeeAmount(id: string) {
+    const coffeeAmount = shoppingCart.find((state) => state.id === id)
     const validityAmoutCoffe =
-      coffeeAmout?.amount === 1 || coffeeAmout?.amount === 0
+      coffeeAmount?.amount === 1 || coffeeAmount?.amount === 0
 
     if (validityAmoutCoffe) {
       return setShoppingCart((state) =>
-        state.filter((coffee) => coffee.id !== newCoffee.id),
+        state.filter((coffee) => coffee.id !== id),
       )
     }
 
     setShoppingCart((state) =>
       state.map((coffee) => {
-        if (coffee.id === newCoffee.id && coffee.amount! > 0)
-          coffee.amount! -= 1
+        if (coffee.id === id && coffee.amount! > 0)
+          return {
+            ...coffee,
+            amoumt: (coffee.amount! -= 1),
+          }
 
         return coffee
       }),
@@ -307,15 +309,15 @@ export function useShoppingCartContext() {
         totalPriceCoffees: 0,
       },
     )
-    setShoppingCartAmout(countCoffees)
+    setShoppingCartAmount(countCoffees)
     setPriceCoffee(totalPriceCoffees)
-  }, [shoppingCart, setShoppingCartAmout, setPriceCoffee])
+  }, [shoppingCart, setShoppingCartAmount, setPriceCoffee])
 
   return {
     shoppingCart,
     setShoppingCart,
-    addCoffeeAmout,
-    removeCoffeeAmout,
+    addCoffeeAmount,
+    removeCoffeeAmount,
     shoppingCartAmout,
     coffeesType,
     menuCoffee,

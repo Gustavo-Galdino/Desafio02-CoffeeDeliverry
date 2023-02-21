@@ -8,8 +8,8 @@ export function SelectedCards() {
   const {
     shoppingCart,
     setShoppingCart,
-    addCoffeeAmout,
-    removeCoffeeAmout,
+    addCoffeeAmount,
+    removeCoffeeAmount,
     priceCoffee,
     removeCoffeCart,
   } = useShoppingCartContext()
@@ -29,11 +29,11 @@ export function SelectedCards() {
                 <p>{coffee.name}</p>
                 <div className="handlesContainer">
                   <div className="coffee-count">
-                    <button onClick={() => removeCoffeeAmout(coffee.id)}>
+                    <button onClick={() => removeCoffeeAmount(coffee.id)}>
                       <Minus size={14} weight="fill" />
                     </button>
                     <p>{coffee.amount}</p>
-                    <button onClick={() => addCoffeeAmout(coffee.id)}>
+                    <button onClick={() => addCoffeeAmount(coffee.id)}>
                       <Plus size={14} weight="fill" />
                     </button>
                   </div>
