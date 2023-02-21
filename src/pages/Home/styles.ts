@@ -2,10 +2,13 @@ import styled from 'styled-components'
 
 export const MainContainer = styled.main`
   padding: 128px 160px;
+  display: flex;
+  flex-direction: column;
 
-  div {
+  > div {
     display: flex;
     justify-content: space-between;
+    width: 90%;
     h2 {
       color: ${(props) => props.theme['base-subtitle']};
       font-family: 'Baloo 2', sans-serif;
@@ -40,7 +43,7 @@ export const MainContainer = styled.main`
 `
 
 export const CoffeeContainer = styled.section`
+  gap: 3.75rem 2rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 3.75rem 2rem;
 `

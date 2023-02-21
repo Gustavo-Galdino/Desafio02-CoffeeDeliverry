@@ -8,6 +8,7 @@ export const CoffeeContainer = styled.article`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
   background: ${(props) => props.theme['base-card']};
   border-radius: 6px 36px 6px 36px;
@@ -84,6 +85,7 @@ export const BuyContainer = styled.div`
   button {
     color: ${(props) => props.theme['purple-default']};
     border: 0;
+    background: 0;
 
     &:hover {
       cursor: pointer;

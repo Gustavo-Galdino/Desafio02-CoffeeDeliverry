@@ -4,6 +4,7 @@ export const Container = styled.section`
   background: ${(props) => props.theme['base-card']};
   border-radius: 6px 44px 6px 44px;
   padding: 2.5rem;
+  width: 448px;
 `
 export const SelectedCoffee = styled.section`
   display: flex;
@@ -95,34 +96,28 @@ export const PriceContainer = styled.div`
   }
 
   .button {
-    margin-top: 1.5rem;
-    background: ${(props) => props.theme['yellow-default']};
-    border: 0;
-    border-radius: 6px;
-    padding: 0.5rem 0.75rem;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
     text-decoration: none;
 
     button {
       border: 0;
-      background: 0;
+      background: ${(props) => props.theme['yellow-default']};
+      border-radius: 6px;
       color: ${(props) => props.theme['white-default']};
-      font-size: 0.875rem;
+      padding: 12px 8px;
+      font-size: 0.75rem;
       font-weight: 700;
       line-height: 1.6;
-    }
+      width: 100%;
 
-    &:disabled {
-      opacity: 70%;
-      cursor: not-allowed;
-    }
+      &:disabled {
+        opacity: 70%;
+        cursor: not-allowed;
+      }
 
-    &:not(:disabled):hover {
-      cursor: pointer;
-      background: ${(props) => props.theme['yellow-dark']};
+      &:not(:disabled):hover {
+        cursor: pointer;
+        background: ${(props) => props.theme['yellow-dark']};
+      }
     }
   }
 `

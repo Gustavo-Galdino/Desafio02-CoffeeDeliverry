@@ -4,6 +4,8 @@ export const SucessContainer = styled.section`
   padding: 160px;
   display: flex;
   column-gap: 6.375rem;
+  align-items: center;
+  justify-content: center;
 `
 
 export const TitleContainer = styled.header`

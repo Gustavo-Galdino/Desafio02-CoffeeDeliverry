@@ -313,6 +313,7 @@ export function useShoppingCartContext() {
 
   return {
     shoppingCart,
+    setShoppingCart,
     addCoffeeAmout,
     removeCoffeeAmout,
     shoppingCartAmout,

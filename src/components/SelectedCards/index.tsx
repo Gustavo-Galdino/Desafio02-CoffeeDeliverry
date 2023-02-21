@@ -7,11 +7,16 @@ import { NavLink } from 'react-router-dom'
 export function SelectedCards() {
   const {
     shoppingCart,
+    setShoppingCart,
     addCoffeeAmout,
     removeCoffeeAmout,
     priceCoffee,
     removeCoffeCart,
   } = useShoppingCartContext()
+
+  function confirmOrder() {
+    setShoppingCart([])
+  }
 
   return (
     <>
@@ -58,7 +63,7 @@ export function SelectedCards() {
             <p>Total</p>
             <p>R$ {(priceCoffee + 3.5).toFixed(2)}</p>
           </div>
-          <NavLink to="/success" className="button">
+          <NavLink to="/success" className="button" onClick={confirmOrder}>
             <button disabled={priceCoffee === 0}>Confirmar Pedido</button>
           </NavLink>
         </PriceContainer>

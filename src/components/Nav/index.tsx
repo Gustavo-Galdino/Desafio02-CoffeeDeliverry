@@ -4,9 +4,11 @@ import { MapPin, ShoppingCart } from 'phosphor-react'
 
 import logo from '../../assets/Logo.svg'
 import { useShoppingCartContext } from '../../context/ShoppingCartContext'
+import { useAddressContext } from '../../context/AddressContext'
 
 export function Nav() {
   const { shoppingCartAmout } = useShoppingCartContext()
+  const { cep } = useAddressContext()
 
   return (
     <>
@@ -17,7 +19,7 @@ export function Nav() {
         <div>
           <LocationContainer>
             <MapPin size={22} weight="fill" />
-            <p>Assis, SP</p>
+            <p>{cep.city ? `${cep.city}, ${cep.state}` : 'Brasil'}</p>
           </LocationContainer>
           <CartContainer>
             <NavLink to="/checkout">

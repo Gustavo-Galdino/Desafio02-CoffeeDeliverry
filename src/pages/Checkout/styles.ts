@@ -1,10 +1,9 @@
 import styled from 'styled-components'
 
-export const ConfirmContainer = styled.section``
-
 export const Container = styled.div`
   display: grid;
   grid-template-columns: 640px auto;
+  justify-content: center;
   column-gap: 2rem;
   padding: 140px 160px;
 

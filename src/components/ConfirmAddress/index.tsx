@@ -5,8 +5,7 @@ import {
   MapPinLine,
   Money,
 } from 'phosphor-react'
-import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useAddressContext } from '../../context/AddressContext'
 import {
   AddressContainer,
   FormContainer,
@@ -14,43 +13,9 @@ import {
   PaymentContainer,
 } from './styles'
 
-interface AdressData {
-  street: string
-  neighborhood: string
-  city: string
-  state: string
-}
-
 export function ConfirmAddress() {
-  const [cep, setCEP] = useState<AdressData>({
-    street: '',
-    neighborhood: '',
-    city: '',
-    state: '',
-  })
-  const { register } = useForm()
-  const [cardStyle, setCardStyle] = useState('')
-
-  async function handleCepChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const cepTarget = event?.target.value
-
-    if (cepTarget.length === 8) {
-      try {
-        const response = await fetch(
-          `https://viacep.com.br/ws/${cepTarget}/json/`,
-        )
-        const data = await response.json()
-        setCEP({
-          street: data.logradouro,
-          neighborhood: data.bairro,
-          city: data.localidade,
-          state: data.uf,
-        })
-      } catch (error) {
-        console.error(error)
-      }
-    }
-  }
+  const { cep, handleCepChange, register, cardStyle, setCardStyle } =
+    useAddressContext()
 
   return (
     <>
@@ -64,11 +29,10 @@ export function ConfirmAddress() {
         </div>
         <FormContainer>
           <Input
-            {...register('CEP')}
+            {...register('CEP', { required: true })}
             width="200px"
             type="text"
             placeholder="CEP"
-            required
             onChange={handleCepChange}
           />
           <Input

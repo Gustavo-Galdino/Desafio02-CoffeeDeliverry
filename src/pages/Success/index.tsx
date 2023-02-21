@@ -6,8 +6,12 @@ import {
   TitleContainer,
 } from './styles'
 import img from './Illustration.svg'
+import { useAddressContext } from '../../context/AddressContext'
 
 export function Success() {
+  const { cep, addressNumber, adressComplement, optionsPayment, cardStyle } =
+    useAddressContext()
+
   return (
     <>
       <SucessContainer>
@@ -23,9 +27,10 @@ export function Success() {
               </span>
               <div>
                 <p>
-                  Entrega em <strong>Rua Joao Daniel Martinelli, 102</strong>
+                  Entrega em{' '}
+                  <strong>{`${cep.street}, ${addressNumber} - ${adressComplement}`}</strong>
                 </p>
-                <p>Farrapos-Porto Alegre, RS</p>
+                <p>{`${cep.neighborhood} - ${cep.city}, ${cep.state}`}</p>
               </div>
             </IconContainer>
             <IconContainer>
@@ -43,7 +48,7 @@ export function Success() {
               </span>
               <div>
                 <p>Pagamento na entrega</p>
-                <strong>cartao de credito</strong>
+                <strong>{optionsPayment(cardStyle)}</strong>
               </div>
             </IconContainer>
           </InfosContainer>
